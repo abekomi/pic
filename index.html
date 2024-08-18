@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link to Chiamberlin</title>
+    <title>Submit Your Name and Comment</title>
 </head>
 <body>
-    <h1>Welcome to My Page</h1>
-    <p>Click the link below to go to the Chiamberlin page:</p>
-    <a href="chiamberlin.html">Go to Chiamberlin</a>
-    <p>Click the link to go and comment</p>
-    <a href="name.html">Go to comments</a>
+    <p>To go to chiaberlin site</p>
+    <a href="chiamberlin.html> Go to website</>
+    <h1>Submit Your Name and Comment</h1>
+    <form action="https://formspree.io/f/your-form-id" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="comment">Comment:</label><br>
+        <textarea id="comment" name="comment" rows="4" cols="50" required></textarea><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
