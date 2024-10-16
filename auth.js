@@ -13,7 +13,9 @@ async function fetchPassword() {
 async function checkPassword() {
   const passwordInput = document.getElementById('password').value;
   const errorMsg = document.getElementById('error-msg');
-  await fetchPassword(); // Ensure password is fetched here
+
+  await fetchPassword();
+
   if (passwordInput === correctPassword) {
     document.getElementById('login-container').style.display = 'none';
     document.getElementById('matrix-container').style.display = 'block';
@@ -21,10 +23,5 @@ async function checkPassword() {
     errorMsg.textContent = 'Incorrect password. Please try again.';
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  fetchPassword(); // Initial fetch to have the password ready
-});
-
 
 fetchPassword(); // Fetch the password when the script loads
