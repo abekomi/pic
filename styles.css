@@ -22,5 +22,10 @@ body {
   }
 }
 .image {
-  border: 2px solid red; /* This will help us see the images if they're just invisible */
+  position: absolute;
+  width: 50px; /* Adjust size as needed */
+  height: auto; /* Ensures the aspect ratio is maintained */
+  opacity: 1; /* Full visibility */
+  animation: fall linear infinite;
+  border: 2px solid red; /* Helps see the images if they're just invisible */
 }
