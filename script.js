@@ -1,5 +1,5 @@
 const matrix = document.getElementById('matrix');
-const images = ['./img1.png', './img2.png', './img3.png']; // Replace with your images
+const images = ['img1.png', 'img2.png', 'img3.png']; // Replace with your images
 
 function createImage() {
   const img = document.createElement('img');
