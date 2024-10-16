@@ -10,12 +10,9 @@ body {
 .image {
   position: absolute;
   width: 50px; /* Adjust size as needed */
-  height: auto; /* Ensures the aspect ratio is maintained */
-  opacity: 1; /* Full visibility */
+  opacity: 0.8;
   animation: fall linear infinite;
-  border: 2px solid red; /* Helps see the images if they're just invisible */
 }
-
 @keyframes fall {
   0% {
     top: -100px; /* Start above the screen */
