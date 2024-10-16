@@ -17,10 +17,3 @@ function createImage() {
 
 // Create multiple images at intervals
 setInterval(createImage, 300);
-window.onload = function() {
-    if (typeof someObject !== 'undefined' && someObject.onCompleted) {
-        // your code here
-    } else {
-        console.error('someObject or onCompleted is not defined');
-    }
-}
