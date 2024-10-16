@@ -21,3 +21,6 @@ body {
     top: 100vh; /* End below the screen */
   }
 }
+.image {
+  border: 2px solid red; /* This will help us see the images if they're just invisible */
+}
