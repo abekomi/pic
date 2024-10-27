@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Recorder</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        video {
+            width: 640px;
+            height: 480px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Screen Recorder</h1>
+    <video id="video" autoplay muted></video>
+    <button id="startRecording">Start Recording</button>
+    <button id="stopRecording" disabled>Stop Recording</button>
+
+    <script>
+        const video = document.getElementById('video');
+        const startRecordingButton = document.getElementById('startRecording');
+        const stopRecordingButton = document.getElementById('stopRecording');
+        let mediaRecorder;
+        let recordedChunks = [];
+        let stream;
+
+        startRecordingButton.addEventListener('click', async () => {
+            recordedChunks = [];
+            stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+            video.srcObject = stream;
+            video.play();
+            mediaRecorder = new MediaRecorder(stream);
+
+            mediaRecorder.ondataavailable = function(event) {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+
+            mediaRecorder.onstop = function() {
+                const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'screen_recording.webm';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+
+                // Stop the screen share
+                stream.getTracks().forEach(track => track.stop());
+            };
+
+            mediaRecorder.start();
+            startRecordingButton.disabled = true;
+            stopRecordingButton.disabled = false;
+        });
+
+        stopRecordingButton.addEventListener('click', () => {
+            mediaRecorder.stop();
+            startRecordingButton.disabled = false;
+            stopRecordingButton.disabled = true;
+        });
+    </script>
+</body>
+</html>
