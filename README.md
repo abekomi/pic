@@ -1,1 +1,1 @@
-this is just some fun i had
+Some tools i made with the help of AI
