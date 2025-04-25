@@ -44,6 +44,47 @@
             background-color: #ccc;
         }
     </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #maps {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+    <h2>Your Location on the Map</h2>
+    <div id="maps"></div>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        // Initialize map with default location
+        var map = L.map('map').setView([0, 0], 2); 
+        
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Get user's location
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+        var userLocation = [lat, lon];
+
+        // Set map view to user's location
+        map.setView(userLocation, 13);
+        
+        // Add marker
+        L.marker(userLocation).addTo(map)
+        .bindPopup("You are here!")
+        .openPopup();
+        }, function(error) {
+            alert("Unable to retrieve your location.");
+        });
+        } else {
+            alert("Geolocation is not supported by your browser.");
+    </script>
 </body>
 </html>
