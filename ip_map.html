@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://github.com/abekomi/pic/blob/main/facicon%20.png?raw=true" type="image/png">
-    <title>IP Locator</title>
+    <title>IP Locator and location</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    
     <style>
         body {
   background-image: url('bg_pic.png'); /* or use a full URL */
@@ -22,10 +23,36 @@
 </head>
 <body>
     <h1>IP Address Locator</h1>
+    <a href="/index.html" class="back-to-main">Go back to main page</a>
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="map.js" defer></script>
-     <a href="/index.html" class="back-to-main">Go back to main page</a>
+    <script>
+        async function getIpInfo() {
+  const response = await fetch('https://ipinfo.io/json?token=2f48e27c4b413b');
+  const data = await response.json();
+  return data;
+}
+
+function initMap(lat, lon) {
+  const map = L.map('map').setView([lat, lon], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  L.marker([lat, lon]).addTo(map)
+      .bindPopup('Your location')
+      .openPopup();
+}
+
+window.onload = async () => {
+  const ipInfo = await getIpInfo();
+  const loc = ipInfo.loc.split(',');
+  const lat = parseFloat(loc[0]);
+  const lon = parseFloat(loc[1]);
+  
+  initMap(lat, lon);
+};
+    </script>
     <style>
         .back-to-main {
             position: fixed;
@@ -86,5 +113,6 @@
         } else {
             alert("Geolocation is not supported by your browser.");
     </script>
+    
 </body>
 </html>
