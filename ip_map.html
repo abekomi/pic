@@ -61,7 +61,8 @@
           const lon = position.coords.longitude;
           const userLocation = [lat, lon];
 
-          L.marker(userLocation, { icon: redIcon }).addTo(map) // Apply the red icon
+          // Add custom red marker to map
+          L.marker(userLocation, { icon: redIcon }).addTo(map)
             .bindPopup("📍 You are here!")
             .openPopup();
 
